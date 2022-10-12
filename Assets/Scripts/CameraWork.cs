@@ -7,13 +7,19 @@ using UnityEngine;
 public class CameraWork : MonoBehaviourPunCallbacks
 {
     private Transform target;
-    private void Start()
+
+    public void SetTarget(Transform t)
     {
-        target = GameManager.LocalPlayer.transform;
+        target = t;
+        StartCoroutine("Follow");
     }
 
-    private void Update()
+    IEnumerator Follow()
     {
-        transform.position = new Vector3(target.position.x, target.position.y, -10);
+        while (true)
+        {
+            transform.position = new Vector3(target.position.x, target.position.y, -10);
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
