@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 using UnityEngine;
 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         foreach (var p in GameObject.FindObjectsOfType<PlayerController>())
         {
             players.Add(p.gameObject);
+            players = players.OrderBy(p => p.GetComponent<PhotonView>().Owner.ActorNumber).ToList();
             Debug.Log("Added");
         }
     }
