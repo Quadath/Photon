@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -17,12 +18,17 @@ public class Enemy : MonoBehaviour
     }
 
     [PunRPC]
-    public void Damage(float dmg)
+    public void Damage(float dmg, Player player)
     {
         hp -= dmg;
         if (hp <= 0)
         {
-            if(PhotonNetwork.IsMasterClient) PhotonNetwork.Destroy(gameObject);
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                player.AddScore(1);
+                PhotonNetwork.Destroy(gameObject);
+            }
         }
     }
 
@@ -30,8 +36,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            other.gameObject.GetComponent<Bullet>().Owner.AddScore(1);
-            if(PhotonNetwork.IsMasterClient) _view.RPC("Damage", RpcTarget.AllViaServer, 1f);
+            if(PhotonNetwork.IsMasterClient) _view.RPC("Damage", RpcTarget.AllViaServer, 1f, other.gameObject.GetComponent<Bullet>().Owner);
         }
     }
 

@@ -15,8 +15,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Application.targetFrameRate = 60;
         LocalPlayer = PhotonNetwork.Instantiate("Player", transform.position, Quaternion.identity);
+        PhotonNetwork.Instantiate("Portal", new Vector3(-7, 6 * (PhotonNetwork.LocalPlayer.ActorNumber - 1)),
+            Quaternion.identity);
         localView = LocalPlayer.GetComponent<PhotonView>();
-        LocalPlayer.GetComponent<SpriteRenderer>().color = Color.cyan;
+        LocalPlayer.GetComponent<SpriteRenderer>().color = Color.white;
         LocalPlayer.name = "Player";
         LocalPlayer.transform.position = new Vector3(0, 5 * (PhotonNetwork.LocalPlayer.ActorNumber - 1), 0);
         FindObjectOfType<CameraWork>().SetTarget(LocalPlayer.transform);
@@ -35,7 +37,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             players.Add(p.gameObject);
             players = players.OrderBy(p => p.GetComponent<PhotonView>().Owner.ActorNumber).ToList();
-            Debug.Log("Added");
         }
     }
     private IEnumerator SpawnEnemies()
