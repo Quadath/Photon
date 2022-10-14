@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class TurretTrigger : MonoBehaviour
@@ -11,6 +12,7 @@ public class TurretTrigger : MonoBehaviour
     
     private void Start()
     {
+        if (!PhotonNetwork.IsMasterClient) Destroy(this);
         turr = transform.parent.GetComponent<Turret>();
         GetComponent<CircleCollider2D>().radius = radius;
     }

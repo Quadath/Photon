@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour
 
             if (PhotonNetwork.IsMasterClient)
             {
-                player.AddScore(1);
                 PhotonNetwork.Destroy(gameObject);
             }
         }

@@ -13,7 +13,7 @@ public class Portal : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            player.AddScore(-10);
+            player.AddScore(-1);
             PhotonNetwork.Destroy(other.gameObject);
         }
     }

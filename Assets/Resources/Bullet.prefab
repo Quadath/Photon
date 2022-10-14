@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5058145219525207167}
   - component: {fileID: 3384587739992005883}
   - component: {fileID: 8655164194174453573}
+  - component: {fileID: 8972164712679796786}
   - component: {fileID: 6240459164136347195}
   m_Layer: 0
   m_Name: Bullet
@@ -134,10 +135,27 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8972164712679796786}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8972164712679796786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893618488486483888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!50 &6240459164136347195
 Rigidbody2D:
   serializedVersion: 4

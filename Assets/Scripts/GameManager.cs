@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -21,7 +22,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         LocalPlayer.GetComponent<SpriteRenderer>().color = Color.white;
         LocalPlayer.name = "Player";
         LocalPlayer.transform.position = new Vector3(0, 5 * (PhotonNetwork.LocalPlayer.ActorNumber - 1), 0);
+        PhotonNetwork.LocalPlayer.SetScore(50);
+        
         FindObjectOfType<CameraWork>().SetTarget(LocalPlayer.transform);
+        
         StartCoroutine("CheckAllPlayersConnected");
 
         PhotonNetwork.SendRate = 30;
