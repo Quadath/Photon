@@ -16,13 +16,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         Application.targetFrameRate = 60;
         LocalPlayer = PhotonNetwork.Instantiate("Player", transform.position, Quaternion.identity);
         PhotonNetwork.Instantiate("Portal", new Vector3(-7, 6 * (PhotonNetwork.LocalPlayer.ActorNumber - 1)),
-            Quaternion.identity);
+            Quaternion.identity).GetComponent<Portal>().player = PhotonNetwork.LocalPlayer;
         localView = LocalPlayer.GetComponent<PhotonView>();
         LocalPlayer.GetComponent<SpriteRenderer>().color = Color.white;
         LocalPlayer.name = "Player";
         LocalPlayer.transform.position = new Vector3(0, 5 * (PhotonNetwork.LocalPlayer.ActorNumber - 1), 0);
         FindObjectOfType<CameraWork>().SetTarget(LocalPlayer.transform);
         StartCoroutine("CheckAllPlayersConnected");
+
+        PhotonNetwork.SendRate = 30;
+        PhotonNetwork.SerializationRate = 20;
     }
     private IEnumerator CheckAllPlayersConnected()
     {

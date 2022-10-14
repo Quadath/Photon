@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         photonView = GetComponent<PhotonView>();
     }
-
+    
     public void Update()
     {
         if (!photonView.AmOwner) return;
@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             var click = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            PhotonNetwork.Instantiate("Block", new Vector3(click.x, click.y, 0), Quaternion.identity);
+            GameObject turret =
+                PhotonNetwork.Instantiate("Turret", new Vector3(click.x, click.y, 0), Quaternion.identity);
+            turret.GetComponent<Turret>().owner = PhotonNetwork.LocalPlayer;
         }
         
         var move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
